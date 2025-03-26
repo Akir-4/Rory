@@ -1,0 +1,3 @@
+ASSISTANT_NAME = "Rory"
+DEFAULT_LANGUAGE = "es"
+DEFAULT_BROWSER = "chrome"
