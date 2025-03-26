@@ -6,13 +6,17 @@ class BrowserHandler:
         url = f"https://www.youtube.com/results?search_query={query}"
         open_browsers = get_open_browsers()
 
-        if browser:  # Si especificaste un navegador en el comando
+        if browser:  # Si especificaste un navegador
             if browser in open_browsers:
                 print(f"¡Listo! Abriendo una pestaña nueva en {browser}.")
                 webbrowser.get(browser).open_new_tab(url)
             else:
-                print(f"No encontré {browser} abierto, abriendo en el navegador predeterminado.")
-                webbrowser.open(url)
+                print(f"{browser} no está abierto, lo abriré para ti.")
+                try:
+                    webbrowser.get(browser).open(url)  # Abre el navegador especificado
+                except webbrowser.Error:
+                    print(f"No pude abrir {browser}, usando el predeterminado.")
+                    webbrowser.open(url)
         else:  # Si no especificaste
             if len(open_browsers) == 0:
                 print("¡Listo! Abriendo el navegador y buscando en YouTube.")

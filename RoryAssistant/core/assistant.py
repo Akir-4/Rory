@@ -8,9 +8,11 @@ class RoryAssistant:
         self.name = "Rory"
 
     def start(self):
-        print(f"¡Hola! Soy {self.name}, ¿cómo te ayudo?")
-        comando = input("Dime qué hacer: ")  # Por ahora texto, luego voz
-        self.process_command(comando)
+        print(f"¡Hola! Soy {self.name}, estoy listo para escucharte.")
+        while True:  # Bucle para seguir escuchando
+            comando = self.voice.listen()
+            if comando:
+                self.process_command(comando)
 
     def process_command(self, comando):
         comando = comando.lower()
