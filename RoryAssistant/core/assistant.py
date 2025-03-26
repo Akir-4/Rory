@@ -8,8 +8,8 @@ class RoryAssistant:
         self.name = "Rory"
 
     def start(self):
-        print(f"¡Hola! Soy {self.name}, estoy listo para escucharte.")
-        while True:  # Bucle para seguir escuchando
+        self.voice.speak(f"¡Hola! Soy {self.name}, estoy listo para escucharte.")
+        while True:
             comando = self.voice.listen()
             if comando:
                 self.process_command(comando)
@@ -18,7 +18,6 @@ class RoryAssistant:
         comando = comando.lower()
         if self.name.lower() in comando:
             if "busca" in comando and "youtube" in comando:
-                # Revisamos si especifica un navegador en el comando
                 browsers = ["chrome", "firefox", "edge", "safari", "brave"]
                 specified_browser = None
                 for browser in browsers:
@@ -32,4 +31,4 @@ class RoryAssistant:
                     query = comando.split("busca")[1].replace("en youtube", "").strip()
                     self.browser.search_youtube(query)
             else:
-                print("No entendí, ¿qué quieres que haga?")
+                self.voice.speak("No entendí, ¿qué quieres que haga?")

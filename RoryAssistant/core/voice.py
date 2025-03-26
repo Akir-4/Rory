@@ -1,26 +1,36 @@
 import speech_recognition as sr
+from gtts import gTTS
+import os
+from pygame import mixer
 
 class VoiceHandler:
     def __init__(self):
         self.recognizer = sr.Recognizer()
         self.microphone = sr.Microphone()
+        mixer.init()  # Inicializamos el mezclador de pygame
 
-    def listen(self, trigger_word="rory"):
+    def listen(self):
         with self.microphone as source:
             print("Escuchando... (di 'Rory' para activarme)")
-            self.recognizer.adjust_for_ambient_noise(source, duration=1)  # Ajusta al ruido ambiental
+            self.recognizer.adjust_for_ambient_noise(source, duration=1)
             audio = self.recognizer.listen(source)
-
         try:
-            command = self.recognizer.recognize_google(audio, language="es-ES").lower()
-            print(f"Escuché: {command}")
-            if trigger_word in command:
-                return command
-            else:
-                return None
+            comando = self.recognizer.recognize_google(audio, language="es-ES").lower()
+            print(f"Escuché: {comando}")
+            return comando
         except sr.UnknownValueError:
-            print("No entendí lo que dijiste.")
-            return None
+            self.speak("No entendí lo que dijiste.")
+            return ""
         except sr.RequestError:
-            print("Error al conectar con el servicio de reconocimiento.")
-            return None
+            self.speak("Error al conectar con el servicio de voz.")
+            return ""
+
+    def speak(self, text):
+        tts = gTTS(text=text, lang='es')
+        audio_file = "temp_audio.mp3"
+        tts.save(audio_file)
+        mixer.music.load(audio_file)
+        mixer.music.play()
+        while mixer.music.get_busy():  # Esperamos a que termine de reproducir
+            pass
+        os.remove(audio_file)  # Borramos el archivo temporal
