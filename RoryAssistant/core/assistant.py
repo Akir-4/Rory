@@ -8,7 +8,7 @@ class RoryAssistant:
         self.name = "Rory"
 
     def start(self):
-        self.voice.speak(f"¡Hola! Soy {self.name}, estoy listo para escucharte.")
+        self.voice.speak(f"¡Hola! Soy {self.name}. Estoy listo para escucharte.")
         while True:
             comando = self.voice.listen()
             if comando:
@@ -31,4 +31,4 @@ class RoryAssistant:
                     query = comando.split("busca")[1].replace("en youtube", "").strip()
                     self.browser.search_youtube(query)
             else:
-                self.voice.speak("No entendí, ¿qué quieres que haga?")
+                self.voice.speak("No entendí. ¿Qué quieres que haga?")
