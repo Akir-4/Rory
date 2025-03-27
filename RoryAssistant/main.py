@@ -6,7 +6,7 @@ webbrowser.register('chrome', None, webbrowser.BackgroundBrowser("C:\\Archivos d
 webbrowser.register('brave', None, webbrowser.BackgroundBrowser("C:\\Archivos de programa\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"))
 webbrowser.register('firefox', None, webbrowser.BackgroundBrowser("C:\\Archivos de programa\\Mozilla Firefox\\firefox.exe"))
 webbrowser.register('edge', None, webbrowser.BackgroundBrowser("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"))
-# Añade más si usas otros navegadores (Edge, etc.)
+# Añade más si usas otros navegadores
 
 def run():
     rory = RoryAssistant()
